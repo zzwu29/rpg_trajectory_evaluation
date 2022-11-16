@@ -87,7 +87,7 @@ Currently `eval_cfg.yaml` specifies two parameters for trajectory alignment (use
   * `sim3`: a similarity transformation (for vision-only monocular case)
   * `se3`: a rigid body transformation (for vision-only stereo case)
   * `posyaw`: a translation plus a rotation around gravity (for visual-inertial case)
-  * `pospry`: a translation plus 3-axis rotation (for visual-inertial case, only support 1 pose now)
+  * `pospry`: a translation plus 3-axis rotation (for visual-inertial case, only support align_num_frames: 1 pose now)
   * `none`: do not align the trajectory
 * `align_num_frames`: the number of poses (starting from the beginning) that will be used in the trajectory alignment. `-1` means all poses will be used.
 
