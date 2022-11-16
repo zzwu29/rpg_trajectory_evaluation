@@ -1279,42 +1279,48 @@ def euler_from_matrix(matrix, axes='sxyz'):
     ...    if not numpy.allclose(R0, R1): print axes, "failed"
 
     """
-    try:
-        firstaxis, parity, repetition, frame = _AXES2TUPLE[axes.lower()]
-    except (AttributeError, KeyError):
-        _ = _TUPLE2AXES[axes]
-        firstaxis, parity, repetition, frame = axes
+    # try:
+    #     firstaxis, parity, repetition, frame = _AXES2TUPLE[axes.lower()]
+    # except (AttributeError, KeyError):
+    #     _ = _TUPLE2AXES[axes]
+    #     firstaxis, parity, repetition, frame = axes
 
-    i = firstaxis
-    j = _NEXT_AXIS[i+parity]
-    k = _NEXT_AXIS[i-parity+1]
+    # i = firstaxis
+    # j = _NEXT_AXIS[i+parity]
+    # k = _NEXT_AXIS[i-parity+1]
 
+    # M = numpy.array(matrix, dtype=numpy.float64, copy=False)[:3, :3]
+    # if repetition:
+    #     sy = math.sqrt(M[i, j]*M[i, j] + M[i, k]*M[i, k])
+    #     if sy > _EPS:
+    #         ax = math.atan2(M[i, j],  M[i, k])
+    #         ay = math.atan2(sy,       M[i, i])
+    #         az = math.atan2(M[j, i], -M[k, i])
+    #     else:
+    #         ax = math.atan2(-M[j, k],  M[j, j])
+    #         ay = math.atan2(sy,       M[i, i])
+    #         az = 0.0
+    # else:
+    #     cy = math.sqrt(M[i, i]*M[i, i] + M[j, i]*M[j, i])
+    #     if cy > _EPS:
+    #         ax = math.atan2(M[k, j],  M[k, k])
+    #         ay = math.atan2(-M[k, i],  cy)
+    #         az = math.atan2(M[j, i],  M[i, i])
+    #     else:
+    #         ax = math.atan2(-M[j, k],  M[j, j])
+    #         ay = math.atan2(-M[k, i],  cy)
+    #         az = 0.0
+
+    # if parity:
+    #     ax, ay, az = -ax, -ay, -az
+    # if frame:
+    #     ax, az = az, ax
+    
+    # ypr
     M = numpy.array(matrix, dtype=numpy.float64, copy=False)[:3, :3]
-    if repetition:
-        sy = math.sqrt(M[i, j]*M[i, j] + M[i, k]*M[i, k])
-        if sy > _EPS:
-            ax = math.atan2(M[i, j],  M[i, k])
-            ay = math.atan2(sy,       M[i, i])
-            az = math.atan2(M[j, i], -M[k, i])
-        else:
-            ax = math.atan2(-M[j, k],  M[j, j])
-            ay = math.atan2(sy,       M[i, i])
-            az = 0.0
-    else:
-        cy = math.sqrt(M[i, i]*M[i, i] + M[j, i]*M[j, i])
-        if cy > _EPS:
-            ax = math.atan2(M[k, j],  M[k, k])
-            ay = math.atan2(-M[k, i],  cy)
-            az = math.atan2(M[j, i],  M[i, i])
-        else:
-            ax = math.atan2(-M[j, k],  M[j, j])
-            ay = math.atan2(-M[k, i],  cy)
-            az = 0.0
-
-    if parity:
-        ax, ay, az = -ax, -ay, -az
-    if frame:
-        ax, az = az, ax
+    ax=math.atan2(-M[0,1],M[1,1]) #yaw
+    ay=math.asin(M[2,1]) #pitch
+    az=math.atan2(-M[2,0],M[2,2]) #roll
     return ax, ay, az
 
 
