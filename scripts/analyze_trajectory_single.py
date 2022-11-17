@@ -58,6 +58,7 @@ def analyze_multiple_trials(results_dir, est_type, n_trials,
         if traj.success:
             traj.cache_current_error()
             traj.write_errors_to_yaml()
+            traj.write_align_results_to_txt()
 
         if traj.success and not preset_boxplot_distances:
             print("Save the boxplot distances for next trials.")

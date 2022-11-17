@@ -383,3 +383,18 @@ class Trajectory:
             rel_errors[err_i] = [[self.rel_errors[d][err_i]
                                  for d in self.preset_boxplot_distances]]
         return rel_errors, self.preset_boxplot_distances
+    
+    def write_align_results_to_txt(self):
+        self.abs_align_results_fn = os.path.join(
+            self.saved_results_dir, 'align_results'+'_' +
+            self.align_str + self.suffix_str + '.txt')
+
+        with open(self.abs_align_results_fn, 'w') as outfile:
+            for i in range(len(self.t_es)):
+                outfile.write("%.4f"%self.t_es[i]+"\t"+
+                              "%.4f"%self.p_es_aligned[i,0]+"\t"+"%.4f"%self.p_es_aligned[i,1]+"\t"+"%.4f"%self.p_es_aligned[i,2]+"\t"+
+                              "%.10f"%self.q_es_aligned[i,0]+"\t"+"%.10f"%self.q_es_aligned[i,1]+"\t"+
+                              "%.10f"%self.q_es_aligned[i,2]+"\t"+"%.10f"%self.q_es_aligned[i,3]+"\t"+
+                              "%.4f"%self.scale+"\n")
+
+        return
